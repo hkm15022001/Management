@@ -22,7 +22,7 @@ const options = {
   pass: process.env.DB_PASSWORD
 
 };
-const connection =async ()=>{
+const connection = async ()=>{
     //console.log(options.user, options.pass);
     await mongoose.connect(process.env.DB_HOST_NAME , options);
     const state = Number(mongoose.connection.readyState);

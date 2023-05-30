@@ -21,12 +21,12 @@ const getAllCustomer = async (req, res) => {
 };
 
 const createOneCustomer = async (req, res) => {
-    const { name, sex, birthday, phone, email } = req.body;
+    let { name, sex, birthday, phone, email } = req.body;
+    birthday =new Date(birthday);
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send('No files were uploaded.');
     } else {
         const uploadResult = await uploadSingleFile(req.files.avatar);
-        console.log(uploadResult.path);
         const result = await createOneCustomerService({ name, sex, birthday, phone, email, avatar: uploadResult.path });
         if (result) {
             console.log("Created customer");

@@ -1,11 +1,13 @@
 const Customer = require("../models/customer.model");
 const aqp = require("api-query-params");
 const createOneCustomerService = async(customer) => {
+    console.log("avc");
     try{
-        const result = await Customer.create(customer).exec() ;
+        const result = await Customer.create(customer) ;
         return result;
     } catch(error){
-        return error;
+        console.log(error);
+        return "error from createoneuser";
     }
    
 }
@@ -36,7 +38,7 @@ const getAllCustomerService = async (skip,limit,queryStr) => {
         return result;
     } catch (error) {
         console.log(error);
-        return error;
+        return "Error when get customers";
     }
 
 }

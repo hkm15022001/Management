@@ -4,5 +4,6 @@ const {getAllCustomer,createOneCustomer,createArrCustomer,updateCustomer} = requ
 router.get("/",getAllCustomer);
 router.post("/",createOneCustomer);
 router.post("/many",createArrCustomer);
-router.put("/",updateCustomer)
+router.put("/",updateCustomer);
+
 module.exports = router;

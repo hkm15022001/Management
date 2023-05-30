@@ -3,7 +3,6 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const app = express();
-const route = require("./routes/index");
 const routeAPI = require("./routes/api");
 const db = require("./models")
 const fileUpdload = require("express-fileupload")
@@ -34,8 +33,8 @@ app.use(fileUpdload());
 app.get("/", (req, res) => {
   res.render('home.ejs');
 });
+
 routeAPI(app);
-route(app);
 
 
 // set port, listen for requests and connect to db
@@ -44,10 +43,11 @@ route(app);
     await db.connection();
     const PORT = process.env.PORT || 8080;
     const HOST_NAME = process.env.HOST_NAME || "localhost";
-    app.listen(PORT, HOST_NAME,() => {
+    app.listen(PORT, HOST_NAME, () => {
       console.log(`Server is running on port ${PORT}.`);
     });
   } catch (error) {
-    console.log(">> Error to db: ",error)};
+    console.log(">> Error to db: ", error)
+  };
 })();
 

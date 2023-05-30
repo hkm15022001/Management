@@ -7,7 +7,7 @@ const customerSchema = new mongoose.Schema({
     },
     sex: {
         type: String
-        
+
     },
     birthday: {
         type: Date
@@ -21,5 +21,8 @@ const customerSchema = new mongoose.Schema({
     avatar: {
         type: String
     }
-})
+},
+    {
+        timestamps: true
+    })
 module.exports = mongoose.model("Customer", customerSchema)
