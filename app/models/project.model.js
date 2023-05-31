@@ -66,3 +66,19 @@ module.exports = mongoose.model("Project", projectSchema);
 //     "email": "eric@gmail.com"
 //     }
 //     }
+// const obj = {
+//     startDate: "24/12/2022",
+    
+//     customerInfor: {
+//     name: "eric",
+//     phone: "0123456789",
+//     email: "hoidanit@gmail.com"
+//     },
+//     leader: {
+//         name: "aka",
+//         email: "eric@gmail.com"
+//     }
+// }
+// let {startDate,customerInfor,...arr} = obj;
+// console.log(startDate,customerInfor);
+// console.log(arr)

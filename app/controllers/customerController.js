@@ -1,5 +1,5 @@
 const { uploadSingleFile, uploadMutipleFiles } = require("../services/uploadFiles");
-const { createOneCustomerService, createArrayCustomerService,getAllCustomerService,updateCustomerService } = require("../services/customerService")
+const { createOneCustomerService, createArrayCustomerService,getAllCustomerService,updateCustomerService,deleteCustomerService } = require("../services/customerService")
 
 const getAllCustomer = async (req, res) => {
     //console.log(req.query);
@@ -21,13 +21,12 @@ const getAllCustomer = async (req, res) => {
 };
 
 const createOneCustomer = async (req, res) => {
-    let { name, sex, birthday, phone, email } = req.body;
-    birthday =new Date(birthday);
+
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send('No files were uploaded.');
     } else {
         const uploadResult = await uploadSingleFile(req.files.avatar);
-        const result = await createOneCustomerService({ name, sex, birthday, phone, email, avatar: uploadResult.path });
+        const result = await createOneCustomerService({ ...req.body, avatar: uploadResult.path });
         if (result) {
             console.log("Created customer");
             return res.status(201).json({
@@ -72,4 +71,19 @@ const createArrCustomer = async (req, res) => {
     }
  };
 
-module.exports = { getAllCustomer, createOneCustomer, createArrCustomer ,updateCustomer};
+ const deleteCustomer = async (req,res) =>{
+    try {
+        const result = await deleteCustomerService(req.body.name);
+        return res.status(200).json({
+            EC: 0,
+            data: result
+        })
+    } catch (error) {
+        return res.status(400).json({
+            EC: 1,
+            data: result
+        })
+    }
+ }
+
+module.exports = { getAllCustomer, createOneCustomer, createArrCustomer ,updateCustomer,deleteCustomer};

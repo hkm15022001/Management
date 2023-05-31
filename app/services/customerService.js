@@ -1,15 +1,16 @@
 const Customer = require("../models/customer.model");
 const aqp = require("api-query-params");
+
 const createOneCustomerService = async(customer) => {
-    console.log("avc");
+    let { birthday} = customer;
+    birthday =new Date(birthday);
     try{
-        const result = await Customer.create(customer) ;
+        const result = await Customer.create({birthday,...customer}) ;
         return result;
     } catch(error){
         console.log(error);
         return "error from createoneuser";
-    }
-   
+    } 
 }
 
 const createArrayCustomerService = async(customerArr) => {
@@ -20,7 +21,6 @@ const createArrayCustomerService = async(customerArr) => {
     } catch(error){
         return "Error when create customers";
     }
-
 }
 
 const getAllCustomerService = async (skip,limit,queryStr) => {
@@ -40,13 +40,12 @@ const getAllCustomerService = async (skip,limit,queryStr) => {
         console.log(error);
         return "Error when get customers";
     }
-
 }
 
 const updateCustomerService = async (customer) => {
     let { id, title, description, published } = customer;
     try {
-        const result = await Tuturial.updateOne({ _id: id }, { title, description, published }).exec();
+        const result = await Customer.updateOne({ _id: id }, { title, description, published }).exec();
         //console.log(result);
        return result;
     } catch (error) {
@@ -54,4 +53,15 @@ const updateCustomerService = async (customer) => {
         return "Error when update customer";
     }
 }
-module.exports = {createOneCustomerService,createArrayCustomerService,getAllCustomerService,updateCustomerService};
+
+const deleteCustomerService = async (nameOfObj) => {
+    try {
+        console.log(nameOfObj);
+        const result = await Customer.deleteOne({name:nameOfObj});
+        return result;
+    } catch (error) {
+        console.log(error);
+        return "error when delete customer";
+    }
+}
+module.exports = {createOneCustomerService,createArrayCustomerService,getAllCustomerService,updateCustomerService,deleteCustomerService};
